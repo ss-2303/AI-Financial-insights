@@ -644,7 +644,7 @@ async def startup():
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        S"https://ai-financial-insights-two.vercel.app/",    # ← add your Vercel URL
+        "https://ai-financial-insights-two.vercel.app/",    # ← add your Vercel URL
         "https://*.vercel.app",            # ← covers preview deployments
     ],
     allow_methods=["*"],
