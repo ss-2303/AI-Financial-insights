@@ -591,11 +591,11 @@ async def startup():
     download_from_hf()    
     log.add("success", "Python ML service started")
     load_model()
-app.add_middleware(
+@app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://ai-financial-insights-two.vercel.app/",    # ← add your Vercel URL
+        S"https://ai-financial-insights-two.vercel.app/",    # ← add your Vercel URL
         "https://*.vercel.app",            # ← covers preview deployments
     ],
     allow_methods=["*"],
