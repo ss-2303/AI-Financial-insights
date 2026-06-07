@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+scikit-learn
+pandas
+numpy
+python-dotenv
+python-multipart
+anthropic
+huggingface_hub
