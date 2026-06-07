@@ -32,26 +32,17 @@ import hashlib
 import asyncio
 from datetime import datetime, date, timedelta
 from pathlib import Path
-from typing import List, Optional
-
-from fastapi import FastAPI, HTTPException, WebSocket
-import jwt as pyjwt
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 from dotenv import load_dotenv
-from pathlib import Path
 
-load_dotenv()
+# Load .env explicitly — works regardless of where uvicorn is run from
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
-# Import Claude agent for AI-generated insights
-import sys
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from agents.financial_agent import generate_claude_insights
-from dotenv import load_dotenv
 # ── paths ─────────────────────────────────────────────────────────────────────
-
-BASE_DIR   = load_dotenv(Path(__file__).resolve().parent.parent / ".env")
-
+# main.py is at: backend/api/main.py
+# parent       = backend/api/
+# parent.parent= backend/
+# parent.parent.parent = project root (open banking agent 2/)
+BASE_DIR   = Path(__file__).resolve().parent.parent.parent
 DATA_PATH  = BASE_DIR / "data" / "processed_transactions.csv"
 MODEL_PATH = BASE_DIR / "models" / "classifier.pkl"
 
