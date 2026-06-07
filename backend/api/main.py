@@ -35,6 +35,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from fastapi import FastAPI, HTTPException, WebSocket
+import jwt as pyjwt
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -96,6 +97,15 @@ class Insights(BaseModel):
     summary:         str
     recommendations: List[str]
     confidence_note: str
+
+class LoginRequest(BaseModel):
+    email:    str
+    password: str
+
+class RegisterRequest(BaseModel):
+    email:    str
+    password: str
+    name:     str
 
 class AnalysisRequest(BaseModel):
     limit:             int  = 20
@@ -411,6 +421,45 @@ async def startup():
         log.add("error", f"processed_transactions.csv not found at {DATA_PATH}")
 
 # ── routes ────────────────────────────────────────────────────────────────────
+
+# ── Simple demo auth ─────────────────────────────────────────────────────────
+# No database needed — single demo user for portfolio purposes
+DEMO_USERS = {
+    "test@test.com": {"password": "password123", "name": "Demo User", "id": "demo_001"}
+}
+JWT_SECRET = os.getenv("JWT_SECRET", "demo_secret_key_change_in_production")
+
+@app.post("/auth/login")
+async def login(req: LoginRequest):
+    user = DEMO_USERS.get(req.email)
+    if not user or user["password"] != req.password:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    token = pyjwt.encode(
+        {"sub": user["id"], "email": req.email},
+        JWT_SECRET, algorithm="HS256"
+    )
+    return {
+        "message": "Login successful",
+        "token": token,
+        "user": {"id": user["id"], "email": req.email, "name": user["name"]}
+    }
+
+@app.post("/auth/register")
+async def register(req: RegisterRequest):
+    # In demo mode, register just returns a token — no persistence
+    token = pyjwt.encode(
+        {"sub": req.email, "email": req.email},
+        JWT_SECRET, algorithm="HS256"
+    )
+    return {
+        "message": "Account created",
+        "token": token,
+        "user": {"id": req.email, "email": req.email, "name": req.name}
+    }
+
+@app.get("/auth/me")
+async def me():
+    return {"id": "demo_001", "email": "test@test.com", "name": "Demo User"}
 
 @app.get("/health")
 async def health():
