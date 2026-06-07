@@ -471,7 +471,7 @@ const Header = ({ tab, setTab, user, refetch }: {
 // ── Metric card ───────────────────────────────────────────────────────────────
 const MetricCard = ({ label, value, sub, icon, accent = T.secondary }: {
   label: string; value: string | number; sub?: string
-  icon: React.ElementType; accent?: string
+  icon: string
 }) => {
   const [hov, setHov] = useState(false)
   return (
