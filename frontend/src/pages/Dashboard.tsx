@@ -1066,12 +1066,12 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
       t.description.toLowerCase().includes(q)
   })
 
-  const _btnStyle: React.CSSProperties = {
+  /**const _btnStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 6, padding: "8px 14px",
     border: `1px solid ${T.outlineVariant}`, borderRadius: 8,
     background: T.surfaceLowest, color: T.onSurfaceVariant,
     fontSize: 13, fontWeight: 500, cursor: "pointer",
-  }
+  }**/
 
   return (
     <Card>
