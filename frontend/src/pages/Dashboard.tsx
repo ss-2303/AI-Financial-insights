@@ -471,7 +471,7 @@ const Header = ({ tab, setTab, user, refetch }: {
 // ── Metric card ───────────────────────────────────────────────────────────────
 const MetricCard = ({ label, value, sub, icon, accent = T.secondary }: {
   label: string; value: string | number; sub?: string
-  icon: string
+  icon: string; accent?: string
 }) => {
   const [hov, setHov] = useState(false)
   return (
@@ -1057,8 +1057,8 @@ const TransactionRow = ({ t }: { t: Transaction }) => {
 
 // ── Transactions tab ──────────────────────────────────────────────────────────
 const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
-  const [query, setQuery] = useState("")
-  const [focus, setFocus] = useState(false)
+  const [query, _setQuery] = useState("")
+  const [_focus, _setFocus] = useState(false)
   const filtered = transactions.filter(t => {
     const q = query.toLowerCase()
     return !q || t.merchant.toLowerCase().includes(q) ||
@@ -1066,7 +1066,7 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
       t.description.toLowerCase().includes(q)
   })
 
-  const btnStyle: React.CSSProperties = {
+  const _btnStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 6, padding: "8px 14px",
     border: `1px solid ${T.outlineVariant}`, borderRadius: 8,
     background: T.surfaceLowest, color: T.onSurfaceVariant,

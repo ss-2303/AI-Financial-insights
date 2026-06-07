@@ -8,7 +8,8 @@
  *  - Any user sees the same data (data comes from ML service, not per-user DB)
  */
 
-import { useState, FormEvent } from "react"
+import { useState } from "react"
+import type { FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../hooks/useAuth"
 
