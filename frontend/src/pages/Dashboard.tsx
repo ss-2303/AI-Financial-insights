@@ -35,7 +35,7 @@ const MI = ({ name, size = 20, color = "currentColor", style = {} }: {
 import { useAuth }          from "../hooks/useAuth"
 import { useFinancialData } from "../hooks/useFinancialData"
 import type { Transaction, AnomalyAlert, Insights, Metrics } from "../types/api"
-import MLInsightsPanel from "../components/MLInsightsPanel"
+import MLInsightsPanel from "../components/MlinsightsPanel"
 // ── Design tokens ─────────────────────────────────────────────────────────────
 const T = {
   surface:            "#f8f9ff",
