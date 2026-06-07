@@ -47,9 +47,11 @@ load_dotenv()
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from agents.financial_agent import generate_claude_insights
-
+from dotenv import load_dotenv
 # ── paths ─────────────────────────────────────────────────────────────────────
-BASE_DIR   = Path(__file__).resolve().parent.parent.parent
+
+BASE_DIR   = load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+
 DATA_PATH  = BASE_DIR / "data" / "processed_transactions.csv"
 MODEL_PATH = BASE_DIR / "models" / "classifier.pkl"
 
