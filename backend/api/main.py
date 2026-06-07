@@ -595,7 +595,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "ai-financial-insights-two.vercel.app",    # ← add your Vercel URL
+        "https://ai-financial-insights-two.vercel.app/",    # ← add your Vercel URL
         "https://*.vercel.app",            # ← covers preview deployments
     ],
     allow_methods=["*"],
