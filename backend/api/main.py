@@ -51,6 +51,7 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 BASE_DIR   = Path(__file__).resolve().parent.parent.parent
 DATA_PATH  = BASE_DIR / "data" / "processed_transactions.csv"
 MODEL_PATH = BASE_DIR / "models" / "classifier.pkl"
+EVAL_PATH = BASE_DIR / "models" / "eval_report.json"
 
 # ── pydantic models ───────────────────────────────────────────────────────────
 
@@ -174,7 +175,14 @@ def download_from_hf():
                 local_dir=str(MODEL_PATH.parent)
             )
             print(f"✓ Model downloaded to {path}")
-
+        if not EVAL_PATH.exists():
+            print("Downloading eval report from Hugging Face...")
+            hf_hub_download(
+                repo_id=REPO,
+                filename="eval_report.json",
+                local_dir=str(MODEL_PATH.parent)
+            )
+            print("✓ Eval report downloaded")
         if not DATA_PATH.exists():
             print("Downloading data from Hugging Face...")
             DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
